@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+@theme {
+  --color-merah-utama: #CC0000;
+  --color-merah-gelap: #990000;
+  --color-merah-muda: #FFF0F0;
+  --color-abu-terang: #F5F5F5;
+  --color-abu-sedang: #E0E0E0;
+  --color-abu-teks: #434343;
+  --color-teks-caption: #525252;
+  --color-teks-label: #2E2E2E;
+  --color-teks-utama: #111111;
+  --color-hijau-sukses: #156B32;
+  --color-kuning-warning: #946B00;
+  /* Merriweather — isi teks, formal & nyaman dibaca */
+  --font-sans: "Merriweather", Georgia, "Times New Roman", serif;
+  /* PT Serif — judul, angka keuangan, kesan kokoh */
+  --font-serif: "PT Serif", Georgia, "Times New Roman", serif;
+  /* Lora — eyebrow, label, metadata, sentuhan elegan */
+  --font-accent: "Lora", Georgia, serif;
+  --shadow-premium: 0 4px 24px -4px rgb(0 0 0 / 0.08);
+  --shadow-premium-lg: 0 8px 32px -8px rgb(0 0 0 / 0.12);
+}
+
+:root {
+  --merah-utama: #CC0000;
+  --merah-gelap: #990000;
+  --merah-muda: #FFF0F0;
+  --putih: #FFFFFF;
+  --abu-terang: #F5F5F5;
+  --abu-sedang: #E0E0E0;
+  --abu-teks: #434343;
+  --teks-caption: #525252;
+  --teks-label: #2E2E2E;
+  --hitam-teks: #111111;
+  --hijau-sukses: #156B32;
+  --kuning-warning: #946B00;
+  --font-body: "Merriweather", Georgia, "Times New Roman", serif;
+  --font-heading: "PT Serif", Georgia, "Times New Roman", serif;
+  --font-accent: "Lora", Georgia, serif;
+  --app-max-width: 390px;
+  --nav-height: 56px;
+  --nav-bottom-gap: 0.75rem;
+  --nav-total-offset: calc(
+    var(--nav-height) + var(--nav-bottom-gap) + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--hitam-teks);
+  background-color: var(--putih);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+}
+
+.font-mono-angka {
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+@layer utilities {
+  .section-eyebrow {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--merah-gelap);
+  }
+
+  .display-heading {
+    font-family: var(--font-heading);
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--hitam-teks);
+  }
+
+  @media (min-width: 640px) {
+    .display-heading {
+      font-size: 3rem;
+    }
+  }
+
+  .text-on-merah {
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgb(0 0 0 / 0.28);
+  }
+
+  .text-on-merah-muted {
+    color: rgb(255 255 255 / 0.94);
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.22);
+  }
+
+  .text-label {
+    font-family: var(--font-accent);
+    color: var(--teks-label);
+    font-weight: 600;
+  }
+
+  .text-caption {
+    font-family: var(--font-accent);
+    color: var(--teks-caption);
+    font-weight: 500;
+  }
+
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .font-accent {
+    font-family: var(--font-accent);
+  }
+
+  .premium-card {
+    border-radius: 1rem;
+    border: 1px solid rgb(224 224 224 / 0.6);
+    background-color: var(--putih);
+    box-shadow: var(--shadow-premium);
+  }
+
+  .premium-card-lg {
+    border-radius: 1.5rem;
+    border: 1px solid rgb(224 224 224 / 0.6);
+    background-color: var(--putih);
+    box-shadow: var(--shadow-premium-lg);
+  }
+
+  .stat-number {
+    font-family: var(--font-heading);
+    font-variant-numeric: tabular-nums;
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--hitam-teks);
+  }
+
+  @media (min-width: 640px) {
+    .stat-number {
+      font-size: 3rem;
+    }
+  }
+
+  .hero-grid-bg {
+    background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.12) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .input-premium {
+    min-height: 52px;
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 2px solid var(--abu-sedang);
+    padding: 0.875rem 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--hitam-teks);
+    background-color: var(--putih);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .input-premium::placeholder {
+    font-family: var(--font-accent);
+    color: #6B6B6B;
+    opacity: 1;
+  }
+
+  .input-premium:focus {
+    border-color: var(--merah-utama);
+  }
+
+  .app-shell {
+    width: 100%;
+    max-width: var(--app-max-width);
+    margin-inline: auto;
+    overflow-x: hidden;
+    padding-bottom: var(--nav-total-offset);
+  }
+
+  .balance-amount {
+    font-family: var(--font-heading);
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(1.375rem, 4vw + 0.625rem, 2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .mobile-page-title {
+    font-size: clamp(1.125rem, 2vw + 0.875rem, 1.375rem);
+    line-height: 1.25;
+  }
+
+  .nav-floating {
+    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .floating-above-nav {
+    bottom: calc(var(--nav-total-offset) + 0.5rem);
+  }
+
+  .toast-above-nav {
+    bottom: calc(var(--nav-total-offset) + 0.25rem);
+  }
+
+  .sheet-panel {
+    display: flex;
+    max-height: min(88dvh, calc(100dvh - env(safe-area-inset-top, 0px) - 0.5rem));
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .sheet-panel-body {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+}
