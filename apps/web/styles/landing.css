@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+.landing-root {
+  --landing-merah: #cc0000;
+  --landing-merah-gelap: #990000;
+  --landing-merah-muda: #fff0f0;
+  --landing-merah-border: #f5cccc;
+  --landing-hijau: #1a7f3c;
+  --landing-hitam: #111111;
+  --landing-teks: #1a1a1a;
+  --landing-abu-teks: #666666;
+  --landing-abu-halus: #999999;
+  --landing-abu-border: #e5e5e5;
+  --landing-abu-bg: #f8f8f8;
+  --landing-b2b: #2563eb;
+  --landing-b2b-bg: #edf2ff;
+  --font-landing-display: 'Playfair Display', Georgia, serif;
+  --font-landing-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-landing-mono: 'DM Mono', ui-monospace, monospace;
+
+  font-family: var(--font-landing-body);
+  color: var(--landing-teks);
+  line-height: 1.6;
+}
+
+.landing-root h1,
+.landing-root h2,
+.landing-root h3,
+.landing-root .font-landing-display {
+  font-family: var(--font-landing-display);
+}
+
+.landing-root .font-landing-mono {
+  font-family: var(--font-landing-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.landing-root .landing-section-wrap {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 6%, 4rem);
+}
+
+.landing-root .landing-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--landing-merah);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.landing-root .landing-eyebrow::after {
+  content: '';
+  flex: 1;
+  max-width: 2.5rem;
+  height: 1.5px;
+  background: var(--landing-merah-border);
+}
+
+.landing-root .landing-section-title {
+  font-family: var(--font-landing-display);
+  font-size: clamp(1.75rem, 3vw, 2.625rem);
+  font-weight: 700;
+  color: var(--landing-hitam);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.landing-root .landing-section-sub {
+  font-size: 1rem;
+  color: var(--landing-abu-teks);
+  line-height: 1.75;
+  max-width: 32.5rem;
+}

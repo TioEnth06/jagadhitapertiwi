@@ -1,32 +1,54 @@
-# React + TypeScript + Vite
+# Koperasi Jaga Dhita Pertiwi — Monorepo
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Platform digital koperasi petani (Next.js + Supabase).
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| App | Path | Port |
+|-----|------|------|
+| Web (landing + dashboard) | `apps/web` | 3000 |
+| WhatsApp bot | `apps/bot` | 4000 |
 
-## React Compiler
+Branch **`legacy-vite`** menyimpan app Vite SPA sebelum migrasi.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Setup cepat
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+pnpm install
+cp .env.example apps/web/.env.local
+# Isi NEXT_PUBLIC_SUPABASE_URL dan NEXT_PUBLIC_SUPABASE_ANON_KEY
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Jalankan SQL di Supabase SQL Editor:
+
+```bash
+# File lengkap: packages/db/migrate.sql
+```
+
+```bash
+pnpm dev:web   # http://localhost:3000
+```
+
+## Environment
+
+Lihat [`.env.example`](.env.example). Web app memakai:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+Tanpa Supabase yang valid, dashboard menampilkan **data demo** otomatis.
+
+## Fitur yang sudah di-port dari Vite
+
+- Landing page lengkap (dual entry Individu/Korporat, LOI, WhatsApp)
+- Dashboard dengan PengumumanBanner
+- Pinjaman dengan bunga flat **1.25%**
+- Login + dashboard demo
+
+## Scripts
+
+```bash
+pnpm dev:web      # Next.js web
+pnpm dev:bot      # WhatsApp bot (butuh FONNTE_TOKEN)
+pnpm build        # Build web production
+```

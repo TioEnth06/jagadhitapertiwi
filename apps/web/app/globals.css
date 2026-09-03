@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --font-jakarta:  'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-dm-mono:  'DM Mono', monospace;
+
+  /* Design tokens */
+  --merah:        #CC0000;
+  --merah-gelap:  #990000;
+  --merah-muda:   #FFF0F0;
+  --hijau:        #1A7F3C;
+  --hitam:        #111111;
+  --abu-teks:     #666666;
+  --abu-border:   #E5E5E5;
+  --abu-bg:       #F8F8F8;
+  --biru:         #2563EB;
+  --biru-muda:    #EDF2FF;
+  --kuning:       #B8860B;
+  --kuning-muda:  #FEF9E7;
+}
+
+/* Ukuran font minimum 16px untuk usia 30+ */
+body {
+  font-family: var(--font-jakarta);
+  font-size: 16px;
+  color: var(--hitam);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Semua tombol min 52px untuk mudah disentuh */
+.btn {
+  min-height: 52px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn:active { transform: scale(0.98); }
+
+.btn-merah   { background: var(--merah); color: white; border: none; }
+.btn-merah:hover { background: var(--merah-gelap); }
+
+.btn-outline { background: transparent; color: var(--merah); border: 1.5px solid var(--merah); }
+.btn-outline:hover { background: var(--merah-muda); }
+
+/* Input standar */
+.input {
+  width: 100%;
+  min-height: 52px;
+  border: 1.5px solid var(--abu-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-family: var(--font-jakarta);
+  transition: border-color 0.2s;
+  outline: none;
+}
+.input:focus { border-color: var(--merah); }
+
+/* Kartu */
+.kartu {
+  background: white;
+  border: 1px solid var(--abu-border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+/* Angka Rupiah */
+.rupiah {
+  font-family: var(--font-dm-mono);
+  font-weight: 500;
+}
