@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Wallet, CreditCard, ShoppingBasket, TrendingUp, Bell } from "lucide-react";
 import PengumumanBanner from "@/components/beranda/PengumumanBanner";
 import SectionHead from "@/components/ui/SectionHead";
 import Tag from "@/components/ui/Tag";
+import SectionLabel from "@/components/shared/SectionLabel";
 import { useAuthStore } from "@/lib/stores/useAuthStore";
 import { useSimpananStore } from "@/lib/stores/useSimpananStore";
 import { daftarPengumuman, produkUnggulan } from "@/lib/data/mockData";
@@ -20,34 +20,18 @@ const aksiCepat = [
 ];
 
 export default function DashboardPage() {
-  const router = useRouter();
   const anggota = useAuthStore((s) => s.anggota);
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const simpanan = useSimpananStore((s) => s.simpanan);
 
   const nama = useMemo(() => anggota?.nama?.split(" ")[0] ?? "Anggota", [anggota]);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.replace("/login");
-    }
-  }, [isAuthenticated, router]);
-
-  if (!isAuthenticated) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-merah border-t-transparent" />
-      </div>
-    );
-  }
-
   return (
-    <div className="pb-4">
-      <div className="bg-merah px-5 pb-6 pt-8 text-white">
+    <div className="pb-6">
+      <div className="app-hero-merah px-5 pb-6 pt-8 text-white">
         <div className="mb-5 flex items-start justify-between">
           <div>
             <p className="text-sm opacity-80">Selamat pagi,</p>
-            <p className="text-xl font-bold">{nama} 👋</p>
+            <p className="font-display text-xl font-bold">{nama} 👋</p>
             <p className="mt-1 font-mono text-xs opacity-70">{anggota?.noAnggota}</p>
           </div>
           <button
@@ -80,43 +64,47 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="px-5 pt-5">
-        <p className="mb-3 text-xs font-bold uppercase tracking-wider text-abu-teks">Aksi cepat</p>
-        <div className="mb-6 grid grid-cols-4 gap-3">
-          {aksiCepat.map(({ label, href, Icon }) => (
-            <Link key={href} href={href} className="flex flex-col items-center gap-2">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-merah-muda text-merah">
-                <Icon size={24} strokeWidth={1.8} />
-              </div>
-              <span className="text-center text-[11px] font-semibold leading-tight">{label}</span>
-            </Link>
-          ))}
-        </div>
+      <div className="app-content space-y-6">
+        <section>
+          <SectionLabel title="Aksi cepat" className="mb-3" />
+          <div className="grid grid-cols-4 gap-3">
+            {aksiCepat.map(({ label, href, Icon }) => (
+              <Link key={href} href={href} className="flex flex-col items-center gap-2">
+                <div className="app-quick-icon">
+                  <Icon size={22} strokeWidth={1.8} />
+                </div>
+                <span className="text-center text-[11px] font-semibold leading-tight">{label}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <PengumumanBanner items={daftarPengumuman} />
 
-        <SectionHead title="Produk Unggulan" href="/marketplace" />
-        <div className="flex gap-3 overflow-x-auto px-5 pb-2">
-          {produkUnggulan.map((p) => (
-            <Link
-              key={p.id}
-              href="/marketplace"
-              className="kartu min-w-[140px] shrink-0 p-3"
-            >
-              {p.gambar && (
-                <img src={p.gambar} alt={p.nama} className="mb-2 h-20 w-full rounded-lg object-cover" />
-              )}
-              <p className="text-xs font-bold leading-tight">{p.nama}</p>
-              <p className="mt-1 font-mono text-sm font-bold text-merah">
-                {formatRupiah(p.harga)}
-                <span className="text-[10px] font-normal text-abu-teks">/{p.satuan}</span>
-              </p>
-              <Tag variant="hijau" className="mt-1">
-                ⭐ {p.rating}
-              </Tag>
-            </Link>
-          ))}
-        </div>
+        <section>
+          <SectionHead title="Produk Unggulan" href="/marketplace" inset />
+          <div className="h-scroll pb-1">
+            {produkUnggulan.map((p) => (
+              <Link
+                key={p.id}
+                href="/marketplace"
+                className="app-card app-card-interactive min-w-[140px] shrink-0 p-3"
+              >
+                {p.gambar && (
+                  <img src={p.gambar} alt={p.nama} className="mb-2 h-20 w-full rounded-lg object-cover" />
+                )}
+                <p className="text-xs font-bold leading-tight">{p.nama}</p>
+                <p className="mt-1 font-mono text-sm font-bold text-merah">
+                  {formatRupiah(p.harga)}
+                  <span className="text-[10px] font-normal text-abu-teks">/{p.satuan}</span>
+                </p>
+                <Tag variant="hijau" className="mt-1">
+                  ⭐ {p.rating}
+                </Tag>
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { simpanan as simpananSeed, transaksi as transaksiSeed } from '../data/mockData'
+import { simpanan as simpananSeed, transaksi as transaksiSeed, lokasiKoperasi, metodeTransferPembayaran } from '../data/mockData'
 import type { PenarikanInput, SetoranInput, Simpanan, Transaksi } from '../types'
 import { formatTanggalTransaksi, generateId, generateReferensi } from '../formatTanggal'
 
@@ -42,6 +42,18 @@ function createTransaksi(
   }
 }
 
+function buildMetodeLabel(input: SetoranInput): string {
+  if (input.metode === 'transfer' && input.metodeTransfer) {
+    const opt = metodeTransferPembayaran.find((m) => m.id === input.metodeTransfer)
+    return opt ? `Transfer — ${opt.label}` : 'Transfer'
+  }
+  if (input.metode === 'tunai' && input.lokasiId) {
+    const loc = lokasiKoperasi.find((l) => l.id === input.lokasiId)
+    return loc ? `Tunai — ${loc.nama}` : 'Tunai'
+  }
+  return input.metode === 'transfer' ? 'Transfer' : 'Tunai'
+}
+
 export const useSimpananStore = create<SimpananState>()(
   persist(
     (set, get) => ({
@@ -52,7 +64,7 @@ export const useSimpananStore = create<SimpananState>()(
         const { simpanan, transaksi } = get()
         const referensi = generateReferensi('STR')
         const status = input.metode === 'transfer' ? 'menunggu' : 'selesai'
-        const metodeLabel = input.metode === 'transfer' ? 'Transfer' : 'Tunai'
+        const metodeLabel = buildMetodeLabel(input)
 
         if (input.jenis === 'wajib') {
           if (simpanan.wajibBulanIniStatus === 'LUNAS') {

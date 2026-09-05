@@ -80,10 +80,10 @@ export default function AjukanPinjamanPage() {
         ))}
       </div>
 
-      <div className="px-5 space-y-5">
+      <div className="app-content space-y-6">
         {step === 1 && (
           <>
-            <div className="kartu text-center">
+            <div className="app-form-card text-center">
               <p className="font-mono text-3xl font-bold">{formatRupiah(jumlahEfektif)}</p>
               <p className="mt-1 text-xs text-abu-teks">
                 Plafon {formatRupiah(plafon)} · Min {formatRupiah(MIN_PINJAMAN)}
@@ -127,7 +127,7 @@ export default function AjukanPinjamanPage() {
                 </button>
               ))}
             </div>
-            <SimulasiCicilan jumlah={jumlahEfektif} tenor={tenor} bungaPerBulan={BUNGA_FLAT_PERSEN} />
+            <SimulasiCicilan jumlah={jumlahEfektif} tenor={tenor} />
             {!kelayakan.layak && (
               <p className="text-sm text-merah">{kelayakan.pesan}</p>
             )}
@@ -139,7 +139,7 @@ export default function AjukanPinjamanPage() {
 
         {step === 2 && (
           <>
-            <div>
+            <div className="app-form-card">
               <label htmlFor="tujuan" className="mb-1.5 block text-sm font-semibold">
                 Tujuan Pinjaman
               </label>
@@ -174,7 +174,7 @@ export default function AjukanPinjamanPage() {
 
         {step === 3 && (
           <>
-            <div className="kartu space-y-2">
+            <div className="app-summary space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-abu-teks">Jumlah</span>
                 <span className="font-mono font-bold">{formatRupiah(jumlahEfektif)}</span>

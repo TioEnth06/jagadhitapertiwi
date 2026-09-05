@@ -4,6 +4,7 @@ import TopBar from "@/components/ui/TopBar";
 import Btn from "@/components/ui/Btn";
 import Tag from "@/components/ui/Tag";
 import DemoToast from "@/components/ui/DemoToast";
+import EmptyState from "@/components/shared/EmptyState";
 import { useAdminStore } from "@/lib/stores/useAdminStore";
 import { useDemoToast } from "@/lib/hooks/useDemoToast";
 
@@ -17,21 +18,21 @@ export default function AdminAnggotaPage() {
     <div className="pb-6">
       <TopBar title="Approval Anggota" backHref="/admin" />
 
-      <div className="space-y-4 px-5 py-4">
+      <div className="app-content space-y-4">
         {pendingAnggota.length === 0 ? (
-          <p className="text-center text-sm text-abu-teks">Tidak ada pendaftaran pending.</p>
+          <EmptyState title="Tidak ada pendaftaran pending" />
         ) : (
           pendingAnggota.map((a) => (
-            <div key={a.id} className="kartu p-4">
+            <div key={a.id} className="app-card p-4">
               <div className="flex items-start gap-3">
                 <div
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white font-bold"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full font-bold text-white"
                   style={{ backgroundColor: a.warna }}
                 >
                   {a.inisial}
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
                     <p className="font-bold">{a.nama}</p>
                     <Tag variant={a.tipe === "korporat" ? "biru" : "hijau"}>{a.tipe}</Tag>
                   </div>

@@ -1,0 +1,232 @@
+/* B2B app theme — mirrors landing: merah brand + biru korporat accent */
+
+.landing-root .b2b-hero {
+  background: var(--landing-merah);
+  color: white;
+}
+
+.landing-root .b2b-tag {
+  display: inline-block;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--landing-b2b-bg);
+  color: var(--landing-b2b);
+}
+
+.landing-root .b2b-stat-card {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 12px;
+  min-height: 64px;
+}
+
+.landing-root .b2b-stat-value {
+  margin-top: 4px;
+  font-family: var(--font-landing-mono);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.landing-root .b2b-stat-value-lg {
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.landing-root .b2b-section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--landing-merah);
+}
+
+.landing-root .b2b-section-label::before {
+  content: "";
+  width: 20px;
+  height: 2px;
+  background: var(--landing-merah-border);
+}
+
+.landing-root .b2b-accent {
+  color: var(--landing-b2b);
+}
+
+.landing-root .b2b-accent-bg {
+  background: var(--landing-b2b-bg);
+  color: var(--landing-b2b);
+}
+
+.landing-root .b2b-card {
+  border-radius: 16px;
+  border: 1.5px solid var(--landing-abu-border);
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.landing-root .b2b-card-interactive:hover {
+  border-color: var(--landing-merah);
+  box-shadow: 0 4px 24px rgba(204, 0, 0, 0.08);
+}
+
+.landing-root .b2b-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--landing-b2b);
+}
+
+.landing-root .b2b-loi-banner {
+  border-radius: 16px;
+  border: 1.5px dashed var(--landing-merah-border);
+  background: var(--landing-merah-muda);
+  color: var(--landing-merah);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.landing-root .b2b-loi-banner:hover {
+  border-color: var(--landing-merah);
+}
+
+.landing-root .b2b-summary {
+  border-radius: 16px;
+  border: 1.5px solid var(--landing-abu-border);
+  background: var(--landing-abu-bg);
+}
+
+.landing-root .b2b-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--landing-b2b-bg);
+  color: var(--landing-b2b);
+  flex-shrink: 0;
+}
+
+.landing-root .b2b-nav-active {
+  color: var(--landing-merah);
+  background: var(--landing-merah-muda);
+}
+
+.landing-root .b2b-nav-hover:hover {
+  color: var(--landing-merah);
+}
+
+.landing-root .b2b-topbar-back {
+  background: var(--landing-merah-muda);
+  color: var(--landing-merah);
+}
+
+.landing-root .b2b-topbar-back:hover {
+  background: var(--landing-merah-border);
+}
+
+.landing-root .b2b-hero-back {
+  display: inline-flex;
+  height: 36px;
+  width: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: background 0.2s;
+}
+
+.landing-root .b2b-hero-back:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.landing-root .b2b-content {
+  padding: 16px 20px 24px;
+}
+
+.landing-root .b2b-quick-icon {
+  display: flex;
+  height: 56px;
+  width: 56px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: var(--landing-merah-muda);
+  color: var(--landing-merah);
+}
+
+.landing-root .b2b-menu-list {
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1.5px solid var(--landing-abu-border);
+  background: white;
+}
+
+.landing-root .b2b-menu-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--landing-abu-border);
+  padding: 16px;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.landing-root .b2b-menu-item:last-child {
+  border-bottom: none;
+}
+
+.landing-root .b2b-menu-item:hover {
+  background: var(--landing-abu-bg);
+}
+
+.landing-root .b2b-tab-active {
+  background: var(--landing-merah);
+  color: white;
+}
+
+.landing-root .b2b-tab-inactive {
+  border: 1.5px solid var(--landing-abu-border);
+  background: white;
+  color: var(--landing-abu-teks);
+}
+
+.landing-root .b2b-empty {
+  border-radius: 16px;
+  border: 1.5px dashed var(--landing-abu-border);
+  background: var(--landing-abu-bg);
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.landing-root .b2b-form-card {
+  border-radius: 16px;
+  border: 1.5px solid var(--landing-abu-border);
+  background: white;
+  padding: 20px;
+}
+
+.landing-root .b2b-outline-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1.5px solid var(--landing-merah);
+  padding: 14px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--landing-merah);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.landing-root .b2b-outline-btn:hover {
+  background: var(--landing-merah-muda);
+}

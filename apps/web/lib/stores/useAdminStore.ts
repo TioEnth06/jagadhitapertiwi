@@ -36,6 +36,7 @@ export const useAdminStore = create<AdminState>()(
       setujuiAnggota: (id) =>
         set((s) => ({
           pendingAnggota: s.pendingAnggota.filter((a) => a.id !== id),
+          stats: { ...s.stats, anggotaAktif: s.stats.anggotaAktif + 1 },
         })),
 
       tolakAnggota: (id) =>

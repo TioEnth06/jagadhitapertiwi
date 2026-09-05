@@ -5,6 +5,7 @@ interface SectionHeadProps {
   href?: string;
   linkLabel?: string;
   onLinkClick?: () => void;
+  inset?: boolean;
 }
 
 export default function SectionHead({
@@ -12,16 +13,19 @@ export default function SectionHead({
   href,
   linkLabel = "Lihat semua",
   onLinkClick,
+  inset = false,
 }: SectionHeadProps) {
   return (
-    <div className="flex items-center justify-between px-5 pb-2.5 pt-[18px]">
-      <h3 className="text-[13px] font-bold uppercase tracking-wide text-abu-teks">{title}</h3>
+    <div
+      className={`flex items-center justify-between pb-2.5 pt-1 ${inset ? "" : "px-5 pt-[18px]"}`}
+    >
+      <h3 className="app-section-label-neutral !normal-case !tracking-wide">{title}</h3>
       {href ? (
-        <Link href={href} className="text-[13px] font-semibold text-merah">
+        <Link href={href} className="app-link-merah shrink-0 text-[13px]">
           {linkLabel}
         </Link>
       ) : onLinkClick ? (
-        <button type="button" onClick={onLinkClick} className="text-[13px] font-semibold text-merah">
+        <button type="button" onClick={onLinkClick} className="app-link-merah shrink-0 text-[13px]">
           {linkLabel}
         </button>
       ) : null}

@@ -1,5 +1,5 @@
 import { statistikKoperasi } from '@/lib/data/mockData'
-import { formatRupiahSingkat } from '@/lib/formatRupiah'
+import { formatRupiah, formatRupiahSingkat } from '@/lib/format'
 
 export default function StatsBandSection() {
   const stats = [

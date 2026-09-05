@@ -35,29 +35,17 @@ export function formatTanggalSingkat(tanggal: string | Date): string {
   }).format(new Date(tanggal));
 }
 
-/**
- * Hitung cicilan flat
- * @param pokok - jumlah pinjaman
- * @param bungaPerBulan - persen per bulan (contoh: 1 untuk 1%)
- * @param tenor - jumlah bulan
- */
-export function hitungCicilan(
-  pokok: number,
-  bungaPerBulan: number,
-  tenor: number
-): {
-  cicilanPerBulan: number;
-  totalBunga: number;
-  totalBayar: number;
-} {
-  const bunga = (pokok * bungaPerBulan) / 100;
-  const cicilanPerBulan = pokok / tenor + bunga;
-  const totalBunga = bunga * tenor;
-  const totalBayar = pokok + totalBunga;
+/** Alias untuk tanggal transaksi (format singkat). */
+export function formatTanggalTransaksi(tanggal: string | Date = new Date()): string {
+  return formatTanggalSingkat(tanggal);
+}
 
-  return {
-    cicilanPerBulan: Math.round(cicilanPerBulan),
-    totalBunga: Math.round(totalBunga),
-    totalBayar: Math.round(totalBayar),
-  };
+export function formatRupiahSingkat(nominal: number): string {
+  if (nominal >= 1_000_000_000) {
+    return `Rp ${(nominal / 1_000_000_000).toFixed(1).replace(".0", "")} M`;
+  }
+  if (nominal >= 1_000_000) {
+    return `Rp ${(nominal / 1_000_000).toFixed(1).replace(".0", "")} Jt`;
+  }
+  return formatRupiah(nominal);
 }

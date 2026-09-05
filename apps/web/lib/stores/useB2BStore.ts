@@ -15,6 +15,15 @@ interface BuatPOInput {
   catatan?: string
 }
 
+function recomputeProfile(orders: PurchaseOrder[], base: KorporatProfile): KorporatProfile {
+  const aktif = orders.filter((o) => o.status === 'pending' || o.status === 'approved')
+  return {
+    ...base,
+    poAktif: aktif.length,
+    nilaiPo: orders.reduce((sum, o) => sum + o.total, 0),
+  }
+}
+
 interface B2BState {
   profile: KorporatProfile
   purchaseOrders: PurchaseOrder[]
@@ -44,7 +53,13 @@ export const useB2BStore = create<B2BState>()(
           catatan: input.catatan,
           status: 'pending',
         }
-        set({ purchaseOrders: [po, ...get().purchaseOrders] })
+        set((s) => {
+          const purchaseOrders = [po, ...s.purchaseOrders]
+          return {
+            purchaseOrders,
+            profile: recomputeProfile(purchaseOrders, s.profile),
+          }
+        })
         return po
       },
     }),

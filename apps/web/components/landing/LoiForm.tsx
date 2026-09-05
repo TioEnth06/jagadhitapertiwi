@@ -1,31 +1,69 @@
 "use client";
-import { useState, type FormEvent } from 'react'
-import Link from 'next/link'
+
+import { useState, type FormEvent } from "react";
+import Link from "next/link";
+import { useAdminStore } from "@/lib/stores/useAdminStore";
 
 interface LoiFormProps {
-  onSuccess: (message: string) => void
+  onSuccess: (message: string) => void;
 }
 
 export default function LoiForm({ onSuccess }: LoiFormProps) {
-  const [nama, setNama] = useState('')
-  const [wa, setWa] = useState('')
-  const [error, setError] = useState('')
+  const submitLoi = useAdminStore((s) => s.submitLoi);
+  const [form, setForm] = useState({
+    perusahaan: "",
+    telepon: "",
+    jenis: "Perusahaan / PT / CV",
+    produk: "Beras / Gabah",
+    volume: "",
+    tanggalButuh: "",
+    catatan: "",
+    lokasi: "",
+  });
+  const [error, setError] = useState("");
+
+  const update = (key: keyof typeof form, val: string) =>
+    setForm((f) => ({ ...f, [key]: val }));
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    setError('')
-    if (!nama.trim() || !wa.trim()) {
-      setError('Nama/perusahaan dan nomor WhatsApp wajib diisi.')
-      return
+    e.preventDefault();
+    setError("");
+    if (!form.perusahaan.trim() || !form.telepon.trim()) {
+      setError("Nama/perusahaan dan nomor WhatsApp wajib diisi.");
+      return;
     }
-    if (wa.replace(/\D/g, '').length < 10) {
-      setError('Nomor WhatsApp tidak valid.')
-      return
+    if (form.telepon.replace(/\D/g, "").length < 10) {
+      setError("Nomor WhatsApp tidak valid.");
+      return;
     }
-    onSuccess('Permintaan LOI berhasil dikirim! Tim JDP akan menghubungi Anda dalam 1×24 jam.')
-    setNama('')
-    setWa('')
-  }
+
+    const loi = submitLoi({
+      perusahaan: form.perusahaan.trim(),
+      kontak: form.perusahaan.trim(),
+      telepon: form.telepon.trim(),
+      produk: form.produk,
+      volume: form.volume.trim() || "Belum diisi",
+      lokasi: form.lokasi.trim() || "Belum diisi",
+      tanggalButuh: form.tanggalButuh.trim() || "Segera",
+      catatan: [form.jenis, form.catatan.trim()].filter(Boolean).join(" · "),
+      sumber: "landing",
+    });
+
+    onSuccess(`Permintaan LOI ${loi.ref} berhasil dikirim! Tim JDP akan menghubungi Anda dalam 1×24 jam.`);
+    setForm({
+      perusahaan: "",
+      telepon: "",
+      jenis: "Perusahaan / PT / CV",
+      produk: "Beras / Gabah",
+      volume: "",
+      tanggalButuh: "",
+      catatan: "",
+      lokasi: "",
+    });
+  };
+
+  const inputClass =
+    "w-full rounded-lg border-[1.5px] border-[var(--landing-abu-border)] bg-white px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-[var(--landing-merah)]";
 
   return (
     <div className="sticky top-[90px] rounded-2xl border-[1.5px] border-[var(--landing-abu-border)] bg-[var(--landing-abu-bg)] p-8 lg:static lg:top-auto">
@@ -34,11 +72,13 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
           Butuh pasokan skala besar?
         </h3>
         <p className="text-[13px] leading-relaxed text-[var(--landing-abu-teks)]">
-          Isi form Letter of Intent (LOI) ini — tim JDP dan penjual akan menghubungi Anda dalam
-          1×24 jam.
+          Isi form Letter of Intent (LOI) ini — tim JDP dan penjual akan menghubungi Anda dalam 1×24 jam.
         </p>
         <p className="mt-1 text-[11px] text-[var(--landing-abu-halus)]">
-          Tidak perlu jadi anggota untuk mengajukan LOI.
+          Tidak perlu jadi anggota untuk mengajukan LOI.{" "}
+          <Link href="/loi" className="font-semibold text-[var(--landing-merah)]">
+            Form lengkap →
+          </Link>
         </p>
       </div>
 
@@ -51,10 +91,10 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
             id="loi-nama"
             type="text"
             required
-            value={nama}
-            onChange={(e) => setNama(e.target.value)}
+            value={form.perusahaan}
+            onChange={(e) => update("perusahaan", e.target.value)}
             placeholder="PT Maju Bersama / Pak Ahmad"
-            className="w-full rounded-lg border-[1.5px] border-[var(--landing-abu-border)] bg-white px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-[var(--landing-merah)]"
+            className={inputClass}
           />
         </div>
 
@@ -67,10 +107,10 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
               id="loi-wa"
               type="tel"
               required
-              value={wa}
-              onChange={(e) => setWa(e.target.value)}
+              value={form.telepon}
+              onChange={(e) => update("telepon", e.target.value)}
               placeholder="0812-xxxx-xxxx"
-              className="w-full rounded-lg border-[1.5px] border-[var(--landing-abu-border)] bg-white px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-[var(--landing-merah)]"
+              className={inputClass}
             />
           </div>
           <div>
@@ -79,7 +119,9 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
             </label>
             <select
               id="loi-jenis"
-              className="w-full rounded-lg border-[1.5px] border-[var(--landing-abu-border)] bg-white px-3.5 py-2.5 text-sm outline-none focus:border-[var(--landing-merah)]"
+              value={form.jenis}
+              onChange={(e) => update("jenis", e.target.value)}
+              className={inputClass}
             >
               <option>Perusahaan / PT / CV</option>
               <option>Restoran / Catering</option>
@@ -95,7 +137,9 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
           </label>
           <select
             id="loi-produk"
-            className="w-full rounded-lg border-[1.5px] border-[var(--landing-abu-border)] bg-white px-3.5 py-2.5 text-sm outline-none focus:border-[var(--landing-merah)]"
+            value={form.produk}
+            onChange={(e) => update("produk", e.target.value)}
+            className={inputClass}
           >
             <option>Beras / Gabah</option>
             <option>Sayuran & Hortikultura</option>
@@ -114,8 +158,10 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
             <input
               id="loi-volume"
               type="text"
+              value={form.volume}
+              onChange={(e) => update("volume", e.target.value)}
               placeholder="Contoh: 2 ton/bulan"
-              className="w-full rounded-lg border-[1.5px] border-[var(--landing-abu-border)] bg-white px-3.5 py-2.5 text-sm outline-none focus:border-[var(--landing-merah)]"
+              className={inputClass}
             />
           </div>
           <div>
@@ -125,10 +171,26 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
             <input
               id="loi-waktu"
               type="text"
+              value={form.tanggalButuh}
+              onChange={(e) => update("tanggalButuh", e.target.value)}
               placeholder="Contoh: Februari 2025"
-              className="w-full rounded-lg border-[1.5px] border-[var(--landing-abu-border)] bg-white px-3.5 py-2.5 text-sm outline-none focus:border-[var(--landing-merah)]"
+              className={inputClass}
             />
           </div>
+        </div>
+
+        <div className="mb-3.5">
+          <label htmlFor="loi-lokasi" className="mb-1.5 block text-xs font-semibold text-[var(--landing-teks)]">
+            Lokasi pengiriman
+          </label>
+          <input
+            id="loi-lokasi"
+            type="text"
+            value={form.lokasi}
+            onChange={(e) => update("lokasi", e.target.value)}
+            placeholder="Contoh: Jakarta Selatan"
+            className={inputClass}
+          />
         </div>
 
         <div className="mb-3.5">
@@ -138,8 +200,10 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
           <textarea
             id="loi-catatan"
             rows={3}
-            placeholder="Spesifikasi khusus, lokasi pengiriman, atau informasi lain..."
-            className="min-h-[80px] w-full resize-y rounded-lg border-[1.5px] border-[var(--landing-abu-border)] bg-white px-3.5 py-2.5 text-sm outline-none focus:border-[var(--landing-merah)]"
+            value={form.catatan}
+            onChange={(e) => update("catatan", e.target.value)}
+            placeholder="Spesifikasi khusus atau informasi lain..."
+            className={`min-h-[80px] resize-y ${inputClass}`}
           />
         </div>
 
@@ -157,12 +221,12 @@ export default function LoiForm({ onSuccess }: LoiFormProps) {
         </button>
 
         <p className="mt-3.5 text-center text-xs text-[var(--landing-abu-teks)]">
-          Sudah punya akun?{' '}
+          Sudah punya akun?{" "}
           <Link href="/login" className="font-semibold text-[var(--landing-merah)] no-underline">
             Masuk untuk PO resmi
           </Link>
         </p>
       </form>
     </div>
-  )
+  );
 }

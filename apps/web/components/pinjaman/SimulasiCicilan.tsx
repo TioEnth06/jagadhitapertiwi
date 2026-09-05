@@ -1,25 +1,22 @@
 "use client";
 import { useMemo } from "react";
-import { formatRupiah, hitungCicilan } from "@/lib/format";
+import { formatRupiah } from "@/lib/format";
+import { BUNGA_FLAT_PERSEN, hitungPinjaman } from "@/lib/hitungPinjaman";
 
 type Props = {
   jumlah: number;
   tenor: number;
-  bungaPerBulan?: number;
 };
 
-export default function SimulasiCicilan({ jumlah, tenor, bungaPerBulan = 1.25 }: Props) {
-  const hasil = useMemo(
-    () => hitungCicilan(jumlah, bungaPerBulan, tenor),
-    [jumlah, tenor, bungaPerBulan]
-  );
+export default function SimulasiCicilan({ jumlah, tenor }: Props) {
+  const hasil = useMemo(() => hitungPinjaman(jumlah, tenor), [jumlah, tenor]);
 
   const baris = [
-    { label: "Jumlah pinjaman",   nilai: formatRupiah(jumlah),                    bold: false },
-    { label: "Bunga",             nilai: `${bungaPerBulan}% / bulan (flat)`,       bold: false },
-    { label: "Total bunga",       nilai: formatRupiah(hasil.totalBunga),           bold: false },
-    { label: "Cicilan per bulan", nilai: formatRupiah(hasil.cicilanPerBulan),      bold: true  },
-    { label: "Total bayar",       nilai: formatRupiah(hasil.totalBayar),           bold: true  },
+    { label: "Jumlah pinjaman", nilai: formatRupiah(jumlah), bold: false },
+    { label: "Bunga", nilai: `${BUNGA_FLAT_PERSEN}% / bulan (flat)`, bold: false },
+    { label: "Total bunga", nilai: formatRupiah(hasil.totalBunga), bold: false },
+    { label: "Cicilan per bulan", nilai: formatRupiah(hasil.cicilanPerBulan), bold: true },
+    { label: "Total bayar", nilai: formatRupiah(hasil.totalBayar), bold: true },
   ];
 
   return (

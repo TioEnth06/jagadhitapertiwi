@@ -14,6 +14,7 @@ interface AjukanInput {
 interface PinjamanState {
   pengajuan: PengajuanPinjaman[]
   ajukan: (input: AjukanInput) => PengajuanPinjaman
+  updateStatus: (id: string, status: PengajuanPinjaman['status'], catatanPengurus?: string) => void
 }
 
 const ringkasanSeed1 = hitungPinjaman(2_000_000, 6, new Date('2025-01-10'))
@@ -74,6 +75,13 @@ export const usePinjamanStore = create<PinjamanState>()(
         set({ pengajuan: [baru, ...get().pengajuan] })
         return baru
       },
+
+      updateStatus: (id, status, catatanPengurus) =>
+        set((s) => ({
+          pengajuan: s.pengajuan.map((p) =>
+            p.id === id ? { ...p, status, catatanPengurus: catatanPengurus ?? p.catatanPengurus } : p,
+          ),
+        })),
     }),
     {
       name: 'jdp-pinjaman',

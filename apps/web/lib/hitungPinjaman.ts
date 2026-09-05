@@ -1,7 +1,7 @@
 import { MAX_PINJAMAN, MIN_PINJAMAN } from '@/lib/data/mockData'
 import type { CicilanPinjaman, RingkasanPinjamanData } from '@/lib/types'
 import { formatTanggalTransaksi } from '@/lib/formatTanggal'
-import { formatRupiah } from '@/lib/formatRupiah'
+import { formatRupiah } from '@/lib/format'
 
 export const BUNGA_FLAT_PERSEN = 1.25
 export const BUNGA_FLAT_PER_BULAN = BUNGA_FLAT_PERSEN / 100

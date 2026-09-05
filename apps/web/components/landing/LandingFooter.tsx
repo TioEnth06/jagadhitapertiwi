@@ -31,10 +31,10 @@ const platformLinks = [
 ]
 
 const korporatLinks = [
-  { label: 'Daftar Korporat', href: WHATSAPP_URL_DAFTAR, external: true },
-  { label: 'Purchase Order', href: '/login' },
-  { label: 'Pinjaman Korporat', href: '/login' },
-  { label: 'Harga Grosir', href: '#marketplace' },
+  { label: 'Dashboard B2B', href: '/b2b' },
+  { label: 'Purchase Order', href: '/b2b/po/buat' },
+  { label: 'Form LOI', href: '/loi' },
+  { label: 'Marketplace', href: '/marketplace' },
   { label: 'Hubungi Partnership', href: WHATSAPP_URL_DAFTAR, external: true },
 ]
 
@@ -140,7 +140,12 @@ export default function LandingFooter() {
 
       <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] pt-7">
         <p className="text-xs text-white/35">© 2025 Koperasi Jaga Dhita Pertiwi. Hak cipta dilindungi.</p>
-        <p className="text-xs text-white/35">Dibuat dengan bangga di Indonesia</p>
+        <div className="flex items-center gap-4">
+          <Link href="/admin" className="text-xs text-white/25 hover:text-white/50">
+            Admin
+          </Link>
+          <p className="text-xs text-white/35">Dibuat dengan bangga di Indonesia</p>
+        </div>
       </div>
     </footer>
   )

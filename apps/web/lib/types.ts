@@ -106,10 +106,32 @@ export type AkunMenuView =
 export type JenisSimpanan = 'wajib' | 'sukarela'
 export type MetodeBayar = 'transfer' | 'tunai'
 
+export type MetodeTransferId = 'bri' | 'mandiri' | 'va' | 'qris'
+
+export interface MetodeTransferOption {
+  id: MetodeTransferId
+  label: string
+  deskripsi: string
+  bank: string
+  nomor: string
+  atasNama: string
+  kodeVirtual?: string
+}
+
+export interface LokasiKoperasi {
+  id: string
+  nama: string
+  alamat: string
+  jam: string
+  petugas: string
+}
+
 export interface SetoranInput {
   jenis: JenisSimpanan
   nominal: number
   metode: MetodeBayar
+  metodeTransfer?: MetodeTransferId
+  lokasiId?: string
   catatan?: string
 }
 

@@ -2,37 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
-
 :root {
-  --font-jakarta:  'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-playfair: 'Playfair Display', Georgia, serif;
-  --font-dm-mono:  'DM Mono', monospace;
+  --font-jakarta: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-playfair: "Playfair Display", Georgia, serif;
+  --font-dm-mono: "DM Mono", monospace;
 
-  /* Design tokens */
-  --merah:        #CC0000;
-  --merah-gelap:  #990000;
-  --merah-muda:   #FFF0F0;
-  --hijau:        #1A7F3C;
-  --hitam:        #111111;
-  --abu-teks:     #666666;
-  --abu-border:   #E5E5E5;
-  --abu-bg:       #F8F8F8;
-  --biru:         #2563EB;
-  --biru-muda:    #EDF2FF;
-  --kuning:       #B8860B;
-  --kuning-muda:  #FEF9E7;
+  --merah: #cc0000;
+  --merah-gelap: #990000;
+  --merah-muda: #fff0f0;
+  --merah-border: #f5cccc;
+  --hijau: #1a7f3c;
+  --hitam: #111111;
+  --abu-teks: #666666;
+  --abu-border: #e5e5e5;
+  --abu-bg: #f8f8f8;
+  --biru: #2563eb;
+  --biru-muda: #edf2ff;
+  --kuning: #b8860b;
+  --kuning-muda: #fef9e7;
 }
 
-/* Ukuran font minimum 16px untuk usia 30+ */
 body {
   font-family: var(--font-jakarta);
   font-size: 16px;
   color: var(--hitam);
+  background: var(--abu-bg);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Semua tombol min 52px untuk mudah disentuh */
 .btn {
   min-height: 52px;
   padding: 14px 24px;
@@ -46,15 +43,28 @@ body {
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
 }
-.btn:active { transform: scale(0.98); }
+.btn:active {
+  transform: scale(0.98);
+}
 
-.btn-merah   { background: var(--merah); color: white; border: none; }
-.btn-merah:hover { background: var(--merah-gelap); }
+.btn-merah {
+  background: var(--merah);
+  color: white;
+  border: none;
+}
+.btn-merah:hover {
+  background: var(--merah-gelap);
+}
 
-.btn-outline { background: transparent; color: var(--merah); border: 1.5px solid var(--merah); }
-.btn-outline:hover { background: var(--merah-muda); }
+.btn-outline {
+  background: transparent;
+  color: var(--merah);
+  border: 1.5px solid var(--merah);
+}
+.btn-outline:hover {
+  background: var(--merah-muda);
+}
 
-/* Input standar */
 .input {
   width: 100%;
   min-height: 52px;
@@ -65,10 +75,12 @@ body {
   font-family: var(--font-jakarta);
   transition: border-color 0.2s;
   outline: none;
+  background: white;
 }
-.input:focus { border-color: var(--merah); }
+.input:focus {
+  border-color: var(--merah);
+}
 
-/* Kartu */
 .kartu {
   background: white;
   border: 1px solid var(--abu-border);
@@ -76,8 +88,30 @@ body {
   padding: 20px;
 }
 
-/* Angka Rupiah */
 .rupiah {
   font-family: var(--font-dm-mono);
   font-weight: 500;
+}
+
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--merah);
+}
+
+.h-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-inline: -20px;
+  padding-inline: 20px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.h-scroll::-webkit-scrollbar {
+  display: none;
 }

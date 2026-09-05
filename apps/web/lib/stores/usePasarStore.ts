@@ -54,7 +54,12 @@ export const usePasarStore = create<PasarState>()(
           penjual: itemProduk.penjual,
         }
 
-        set({ orders: [order, ...get().orders] })
+        set({
+          produk: get().produk.map((p) =>
+            p.id === itemProduk.id ? { ...p, stok: Math.max(0, p.stok - qty) } : p,
+          ),
+          orders: [order, ...get().orders],
+        })
         return { ok: true, order }
       },
     }),

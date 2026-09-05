@@ -1,6 +1,6 @@
 import { cn } from "ui";
 
-type TagVariant = "merah" | "hijau" | "biru" | "kuning" | "abu";
+export type TagVariant = "merah" | "hijau" | "biru" | "kuning" | "abu";
 
 const variants: Record<TagVariant, string> = {
   merah: "bg-merah-muda text-merah",

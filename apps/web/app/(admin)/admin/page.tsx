@@ -1,14 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import Tag from "@/components/ui/Tag";
+import SectionLabel from "@/components/shared/SectionLabel";
+import { StatCard, StatGrid } from "@/components/shared/PageHero";
 import { useAdminStore } from "@/lib/stores/useAdminStore";
+import { usePinjamanStore } from "@/lib/stores/usePinjamanStore";
 import { formatRupiah } from "@/lib/format";
 
 export default function AdminDashboardPage() {
   const stats = useAdminStore((s) => s.stats);
   const pendingCount = useAdminStore((s) => s.pendingAnggota.length);
   const loiCount = useAdminStore((s) => s.loiInbox.filter((l) => l.status === "baru").length);
+  const pinjamanPending = usePinjamanStore((s) => s.pengajuan.filter((p) => p.status === "menunggu").length);
 
   const menus = [
     {
@@ -16,60 +21,62 @@ export default function AdminDashboardPage() {
       label: "Approval Anggota",
       desc: "Setujui pendaftaran baru",
       badge: pendingCount,
-      color: "text-merah",
+      accent: "text-merah",
+    },
+    {
+      href: "/admin/pinjaman",
+      label: "Approval Pinjaman",
+      desc: "Setujui pengajuan pinjaman anggota",
+      badge: pinjamanPending,
+      accent: "text-merah",
     },
     {
       href: "/admin/loi",
       label: "Inbox LOI",
       desc: "Permintaan pasokan korporat",
       badge: loiCount,
-      color: "text-biru",
+      accent: "text-biru",
     },
   ];
 
   return (
-    <div className="pb-4">
-      <div className="bg-hijau px-5 pb-6 pt-8 text-white">
+    <div className="pb-6">
+      <div className="app-hero-hijau px-5 pb-6 pt-8 text-white">
         <p className="text-sm opacity-80">Panel Pengurus</p>
-        <h1 className="text-xl font-bold">Admin Dashboard</h1>
+        <h1 className="font-display text-xl font-bold">Admin Dashboard</h1>
         <p className="mt-1 text-xs opacity-70">Koperasi Jaga Dhita Pertiwi</p>
 
-        <div className="mt-4 grid grid-cols-2 gap-3">
-          <div className="rounded-xl bg-white/15 p-3">
-            <p className="text-[10px] opacity-70">Anggota Aktif</p>
-            <p className="font-mono text-lg font-bold">{stats.anggotaAktif.toLocaleString("id-ID")}</p>
-          </div>
-          <div className="rounded-xl bg-white/15 p-3">
-            <p className="text-[10px] opacity-70">Total Simpanan</p>
-            <p className="font-mono text-sm font-bold">{formatRupiah(stats.totalSimpanan)}</p>
-          </div>
-          <div className="rounded-xl bg-white/15 p-3">
-            <p className="text-[10px] opacity-70">Pending Approval</p>
-            <p className="font-mono text-lg font-bold">{pendingCount}</p>
-          </div>
-          <div className="rounded-xl bg-white/15 p-3">
-            <p className="text-[10px] opacity-70">Transaksi/Bulan</p>
-            <p className="font-mono text-lg font-bold">{stats.transaksiBulan}</p>
-          </div>
+        <div className="mt-4">
+          <StatGrid>
+            <StatCard label="Anggota Aktif" value={stats.anggotaAktif.toLocaleString("id-ID")} />
+            <StatCard label="Total Simpanan" value={formatRupiah(stats.totalSimpanan)} />
+            <StatCard label="Pending Approval" value={pendingCount} />
+            <StatCard label="Transaksi/Bulan" value={stats.transaksiBulan} />
+          </StatGrid>
         </div>
       </div>
 
-      <div className="space-y-3 px-5 py-4">
+      <div className="app-content space-y-4">
+        <SectionLabel title="Menu Admin" className="mb-1" />
         {menus.map((m) => (
-          <Link key={m.href} href={m.href} className="kartu flex items-center gap-4 p-4">
-            <div className="flex-1">
-              <p className={`font-bold ${m.color}`}>{m.label}</p>
+          <Link
+            key={m.href}
+            href={m.href}
+            className="app-card app-card-interactive flex items-center gap-4 p-4"
+          >
+            <div className="min-w-0 flex-1">
+              <p className={`font-bold ${m.accent}`}>{m.label}</p>
               <p className="text-xs text-abu-teks">{m.desc}</p>
             </div>
             {m.badge > 0 && <Tag variant="merah">{m.badge}</Tag>}
-            <span className="text-abu-teks">→</span>
+            <ChevronRight size={18} className="shrink-0 text-abu-teks" />
           </Link>
         ))}
-      </div>
 
-      <Link href="/" className="block px-5 text-center text-sm text-abu-teks">
-        ← Kembali ke landing
-      </Link>
+        <Link href="/" className="app-link-muted pt-2">
+          ← Kembali ke landing
+        </Link>
+      </div>
     </div>
   );
 }

@@ -310,6 +310,66 @@ export const rekeningKoperasi = {
   kodeVirtual: '9881234567890123',
 }
 
+export const metodeTransferPembayaran = [
+  {
+    id: 'bri' as const,
+    label: 'Transfer BRI',
+    deskripsi: 'Ke rekening operasional koperasi',
+    bank: 'Bank BRI',
+    nomor: '0456 0100 1234 567',
+    atasNama: 'KOPERASI JAGA DHITA PERTIWI',
+  },
+  {
+    id: 'mandiri' as const,
+    label: 'Transfer Mandiri',
+    deskripsi: 'Ke rekening operasional koperasi',
+    bank: 'Bank Mandiri',
+    nomor: '1400 0123 4567 890',
+    atasNama: 'KOPERASI JAGA DHITA PERTIWI',
+  },
+  {
+    id: 'va' as const,
+    label: 'Virtual Account BRI',
+    deskripsi: 'Bayar via mobile banking / ATM',
+    bank: 'Virtual Account BRI',
+    nomor: '9881234567890123',
+    atasNama: 'KOPERASI JAGA DHITA PERTIWI',
+    kodeVirtual: '9881234567890123',
+  },
+  {
+    id: 'qris' as const,
+    label: 'QRIS Koperasi',
+    deskripsi: 'Scan QR di aplikasi e-wallet',
+    bank: 'QRIS JDP',
+    nomor: 'JDP-QRIS-2025',
+    atasNama: 'KOPERASI JAGA DHITA PERTIWI',
+  },
+]
+
+export const lokasiKoperasi = [
+  {
+    id: 'pusat',
+    nama: 'Kantor Pusat JDP',
+    alamat: 'Jl. Raya Sumber Jaya No. 12, Kec. Sumber Jaya, Kab. Lampung Timur',
+    jam: 'Senin–Jumat, 08.00–16.00 WIB',
+    petugas: 'Bu Rina — Kasir',
+  },
+  {
+    id: 'jatimulyo',
+    nama: 'Kantor Cabang Jatimulyo',
+    alamat: 'Jl. Merdeka No. 45, Desa Jatimulyo, Kec. Jatimulyo',
+    jam: 'Senin–Sabtu, 08.00–14.00 WIB',
+    petugas: 'Pak Hartono — Petugas',
+  },
+  {
+    id: 'wonokerto',
+    nama: 'Pos Layanan Wonokerto',
+    alamat: 'Balai Desa Wonokerto, Kec. Wonokerto',
+    jam: 'Selasa & Kamis, 09.00–15.00 WIB',
+    petugas: 'Bu Siti — Petugas',
+  },
+]
+
 export const rekeningBank = [
   {
     bank: 'Bank BRI',

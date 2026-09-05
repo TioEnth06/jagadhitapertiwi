@@ -30,6 +30,10 @@ export default function LoginPage() {
       setError("PIN wajib diisi.");
       return;
     }
+    if (!/^JDP-/i.test(noAnggota.trim())) {
+      setError("Nomor anggota tidak valid. Demo: JDP-0247");
+      return;
+    }
     setLoading(true);
     setTimeout(() => {
       login(noAnggota.trim());

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Home,
   Wallet,
@@ -27,9 +27,9 @@ const individuMenu = [
 const b2bMenu = [
   { href: "/b2b", label: "Beranda", Icon: Home },
   { href: "/b2b/po/buat", label: "Buat PO", Icon: FileText },
-  { href: "/marketplace", label: "Pasar", Icon: ShoppingBasket },
-  { href: "/b2b", label: "Laporan", Icon: BarChart3 },
-  { href: "/profil", label: "Akun", Icon: Settings },
+  { href: "/b2b/marketplace", label: "Pasar", Icon: ShoppingBasket },
+  { href: "/b2b/laporan", label: "Laporan", Icon: BarChart3 },
+  { href: "/b2b/akun", label: "Akun", Icon: Settings },
 ];
 
 interface NavBawahProps {
@@ -38,19 +38,39 @@ interface NavBawahProps {
 
 export default function NavBawah({ variant = "individu" }: NavBawahProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const menu = variant === "b2b" ? b2bMenu : individuMenu;
-  const activeColor = variant === "b2b" ? "text-biru bg-biru-muda" : "text-merah bg-merah-muda";
-  const hoverColor = variant === "b2b" ? "hover:text-biru" : "hover:text-merah";
+  const activeColor =
+    variant === "b2b" ? "b2b-nav-active" : "text-merah bg-merah-muda";
+  const hoverColor = variant === "b2b" ? "b2b-nav-hover" : "hover:text-merah";
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-abu-border bg-white">
       <div className="mx-auto flex h-16 max-w-[390px] items-center justify-around px-2">
         {menu.map(({ href, label, Icon }) => {
-          const aktif = pathname === href || (href !== "/b2b" && (pathname?.startsWith(href) ?? false));
+          const aktif =
+            pathname === href ||
+            (href === "/b2b/akun" && pathname?.startsWith("/b2b/akun")) ||
+            (href !== "/b2b" &&
+              href !== "/marketplace" &&
+              href !== "/b2b/marketplace" &&
+              href !== "/b2b/akun" &&
+              (pathname?.startsWith(href) ?? false));
           return (
             <Link
               key={`${variant}-${href}-${label}`}
               href={href}
+              onClick={(e) => {
+                if (
+                  href === "/b2b/akun" &&
+                  pathname?.startsWith("/b2b/akun") &&
+                  typeof window !== "undefined" &&
+                  window.location.search
+                ) {
+                  e.preventDefault();
+                  router.replace("/b2b/akun");
+                }
+              }}
               className={`flex flex-col items-center gap-1 rounded-xl px-3 py-1 transition-colors ${
                 aktif ? activeColor : `text-abu-teks ${hoverColor}`
               }`}

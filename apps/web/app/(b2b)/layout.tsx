@@ -1,11 +1,14 @@
+import AppShell from "@/components/shared/AppShell";
 import NavBawah from "@/components/shared/NavBawah";
+import "@/styles/landing.css";
+import "@/styles/b2b.css";
 
 export default function B2BLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-abu-bg">
-      <main className="relative mx-auto min-h-screen max-w-[390px] bg-white pb-20">
+    <div className="landing-root">
+      <AppShell>
         {children}
-      </main>
+      </AppShell>
       <NavBawah variant="b2b" />
     </div>
   );

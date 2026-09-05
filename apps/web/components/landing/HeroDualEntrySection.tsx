@@ -97,9 +97,8 @@ export default function HeroDualEntrySection() {
               'Harga grosir & negosiasi langsung',
               'Dashboard B2B terpisah',
             ]}
-            cta="Daftar sebagai mitra korporat"
-            href={WHATSAPP_URL_KORPORAT}
-            external
+            cta="Masuk Dashboard B2B"
+            href="/b2b"
           />
         </div>
       </div>

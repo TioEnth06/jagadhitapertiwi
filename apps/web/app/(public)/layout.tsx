@@ -1,9 +1,15 @@
+"use client";
+
+import AppShell from "@/components/shared/AppShell";
+import NavBawah from "@/components/shared/NavBawah";
+
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-abu-bg">
-      <main className="relative mx-auto min-h-screen max-w-[390px] bg-white pb-6">
+    <>
+      <AppShell>
         {children}
-      </main>
-    </div>
+      </AppShell>
+      <NavBawah variant="individu" />
+    </>
   );
 }

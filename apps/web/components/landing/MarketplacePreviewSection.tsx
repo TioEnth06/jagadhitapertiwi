@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link'
 import { produk } from '@/lib/data/mockData'
-import { formatRupiah } from '@/lib/formatRupiah'
+import { formatRupiah } from '@/lib/format'
 import SectionEyebrowLanding from './SectionEyebrowLanding'
 import LoiForm from './LoiForm'
 import DemoToast from '@/components/ui/DemoToast'

@@ -7,6 +7,7 @@ import Btn from "@/components/ui/Btn";
 import FormGroup from "@/components/ui/FormGroup";
 import Input from "@/components/ui/Input";
 import DemoToast from "@/components/ui/DemoToast";
+import B2BSection from "@/components/b2b/B2BSection";
 import { useB2BStore } from "@/lib/stores/useB2BStore";
 import { produk } from "@/lib/data/mockData";
 import { useDemoToast } from "@/lib/hooks/useDemoToast";
@@ -55,78 +56,119 @@ export default function BuatPOPage() {
 
   return (
     <div className="pb-6">
-      <TopBar title="Buat Purchase Order" backHref="/b2b" />
+      <TopBar title="Buat Purchase Order" backHref="/b2b" variant="b2b" />
 
-      <form onSubmit={handleSubmit} className="space-y-1 px-5 py-4">
-        <FormGroup label="Produk" htmlFor="produk">
-          <select
-            id="produk"
-            className="input"
-            value={form.produk}
-            onChange={(e) => {
-              const p = produk.find((x) => x.nama === e.target.value);
-              update("produk", e.target.value);
-              if (p) {
-                update("penjual", p.penjual ?? "");
-                update("hargaSatuan", String(p.harga));
-                update("satuan", p.satuan);
-              }
-            }}
-          >
-            {produk.map((p) => (
-              <option key={p.id} value={p.nama}>
-                {p.nama}
-              </option>
-            ))}
-          </select>
-        </FormGroup>
-        <FormGroup label="Penjual" htmlFor="penjual">
-          <Input id="penjual" value={form.penjual} onChange={(e) => update("penjual", e.target.value)} required />
-        </FormGroup>
-        <div className="flex gap-3">
-          <FormGroup label="Volume" htmlFor="volume" className="flex-1">
-            <Input id="volume" type="number" min={1} value={form.volume} onChange={(e) => update("volume", e.target.value)} required />
-          </FormGroup>
-          <FormGroup label="Satuan" htmlFor="satuan" className="w-24">
-            <Input id="satuan" value={form.satuan} onChange={(e) => update("satuan", e.target.value)} required />
-          </FormGroup>
-        </div>
-        <FormGroup label="Harga Satuan (Rp)" htmlFor="harga">
-          <Input id="harga" type="number" value={form.hargaSatuan} onChange={(e) => update("hargaSatuan", e.target.value)} required />
-        </FormGroup>
-        <FormGroup label="Tanggal Pengiriman" htmlFor="tanggal">
-          <Input id="tanggal" type="date" value={form.tanggal} onChange={(e) => update("tanggal", e.target.value)} required />
-        </FormGroup>
-        <FormGroup label="Lokasi Pengiriman" htmlFor="lokasi">
-          <Input id="lokasi" value={form.lokasi} onChange={(e) => update("lokasi", e.target.value)} required />
-        </FormGroup>
-        <FormGroup label="Catatan (opsional)" htmlFor="catatan">
-          <textarea
-            id="catatan"
-            className="input min-h-[60px] resize-none"
-            value={form.catatan}
-            onChange={(e) => update("catatan", e.target.value)}
-          />
-        </FormGroup>
+      <form onSubmit={handleSubmit} className="b2b-content space-y-6">
+        <B2BSection title="Detail PO">
+          <div className="b2b-form-card space-y-4">
+            <FormGroup label="Produk" htmlFor="produk">
+              <select
+                id="produk"
+                className="input focus:border-[var(--landing-merah)]"
+                value={form.produk}
+                onChange={(e) => {
+                  const p = produk.find((x) => x.nama === e.target.value);
+                  update("produk", e.target.value);
+                  if (p) {
+                    update("penjual", p.penjual ?? "");
+                    update("hargaSatuan", String(p.harga));
+                    update("satuan", p.satuan);
+                  }
+                }}
+              >
+                {produk.map((p) => (
+                  <option key={p.id} value={p.nama}>
+                    {p.nama}
+                  </option>
+                ))}
+              </select>
+            </FormGroup>
+            <FormGroup label="Penjual" htmlFor="penjual">
+              <Input
+                id="penjual"
+                value={form.penjual}
+                onChange={(e) => update("penjual", e.target.value)}
+                required
+              />
+            </FormGroup>
+            <div className="flex gap-3">
+              <FormGroup label="Volume" htmlFor="volume" className="flex-1">
+                <Input
+                  id="volume"
+                  type="number"
+                  min={1}
+                  value={form.volume}
+                  onChange={(e) => update("volume", e.target.value)}
+                  required
+                />
+              </FormGroup>
+              <FormGroup label="Satuan" htmlFor="satuan" className="w-24">
+                <Input
+                  id="satuan"
+                  value={form.satuan}
+                  onChange={(e) => update("satuan", e.target.value)}
+                  required
+                />
+              </FormGroup>
+            </div>
+            <FormGroup label="Harga Satuan (Rp)" htmlFor="harga">
+              <Input
+                id="harga"
+                type="number"
+                value={form.hargaSatuan}
+                onChange={(e) => update("hargaSatuan", e.target.value)}
+                required
+              />
+            </FormGroup>
+            <FormGroup label="Tanggal Pengiriman" htmlFor="tanggal">
+              <Input
+                id="tanggal"
+                type="date"
+                value={form.tanggal}
+                onChange={(e) => update("tanggal", e.target.value)}
+                required
+              />
+            </FormGroup>
+            <FormGroup label="Lokasi Pengiriman" htmlFor="lokasi">
+              <Input
+                id="lokasi"
+                value={form.lokasi}
+                onChange={(e) => update("lokasi", e.target.value)}
+                required
+              />
+            </FormGroup>
+            <FormGroup label="Catatan (opsional)" htmlFor="catatan">
+              <textarea
+                id="catatan"
+                className="input min-h-[80px] resize-none"
+                value={form.catatan}
+                onChange={(e) => update("catatan", e.target.value)}
+                placeholder="Instruksi pengiriman atau catatan negosiasi"
+              />
+            </FormGroup>
+          </div>
+        </B2BSection>
 
-        <div className="kartu mt-2 space-y-2 bg-biru-muda">
-          <div className="flex justify-between text-sm">
-            <span>Subtotal</span>
-            <span className="font-mono font-bold">{formatRupiah(total)}</span>
+        <B2BSection title="Ringkasan Biaya">
+          <div className="b2b-summary space-y-3 p-4">
+            <div className="flex justify-between text-sm">
+              <span className="text-[var(--landing-abu-teks)]">Subtotal</span>
+              <span className="font-mono font-bold">{formatRupiah(total)}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-[var(--landing-abu-teks)]">Fee koperasi (1.5%)</span>
+              <span className="font-mono">{formatRupiah(fee)}</span>
+            </div>
+            <div className="flex justify-between border-t border-[var(--landing-abu-border)] pt-3 text-sm font-bold">
+              <span>Total</span>
+              <span className="b2b-accent font-mono">{formatRupiah(total + fee)}</span>
+            </div>
           </div>
-          <div className="flex justify-between text-sm">
-            <span>Fee koperasi (1.5%)</span>
-            <span className="font-mono">{formatRupiah(fee)}</span>
-          </div>
-          <div className="flex justify-between border-t border-abu-border pt-2 text-sm font-bold">
-            <span>Total</span>
-            <span className="font-mono text-biru">{formatRupiah(total + fee)}</span>
-          </div>
-        </div>
+        </B2BSection>
 
-        <div className="pt-4">
-          <Btn type="submit">Submit PO</Btn>
-        </div>
+        <Btn type="submit" variant="merah">
+          Submit PO
+        </Btn>
       </form>
       <DemoToast message={message} onDismiss={dismiss} />
     </div>

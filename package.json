@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev:web": "pnpm --filter web dev",
+    "dev:web:clean": "pnpm --filter web dev:clean",
     "dev:admin": "pnpm --filter admin dev",
     "dev:bot": "pnpm --filter bot dev",
     "dev": "pnpm --parallel dev:web dev:admin",
